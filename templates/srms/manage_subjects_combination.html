@@ -1,0 +1,60 @@
+{% extends "srms/admin_base.html" %} {% load static %} {% block content %}
+
+<div class="container">
+  <h2 class="mb-4"><i class="fas fa-cogs"></i> Manage Subjects combination</h2>
+
+  {% if messages %}
+
+    {% for message in messages %}
+        <div class='alert alert-{% if message.tags == 'error' %}danger{% else %}{{message.tags}}{% endif %} alert-dismissible fade show role='alert''>
+            {{message}}
+            <button type="button" class='btn btn-close' data-bs-dismiss='alert'></button>
+        </div>
+    {% endfor %}
+
+  {% endif %}
+
+
+  <table class='table table-bordered table-striped'>
+    <thead class='table-dark'>
+        <tr>
+            <th>S.No</th>
+            <th>Class and Section</th>
+            <th>Subject</th>
+            <th>Status</th>
+            <th>Creation date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for combination in subject_combinations %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{combination.student_class.class_name}} - Section {{combination.student_class.section}}</td>
+                <td>{{combination.subject}}</td>
+                <td>
+                    {% if combination.status == 1 %}
+                        <span class="badge bg-success">Active</span>
+                    {% else %}
+                        <span class="badge bg-danger">Inactive</span>
+                    {% endif %}
+                </td>
+                <td>{{combination.creation_date}}</td>
+                <td>
+                    {% if combination.status == 1 %}
+                        <a href="?did={{combination.id}}" onclick="return confirm('Deactivate this subject?')" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></a>
+                    {% else %}
+                        <a href="?aid={{combination.id}}" onclick="return confirm('Activate this subject?')" class="btn btn-success btn-sm"><i class="fas fa-check"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan='6' class='text-center'>No subject combination found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  
+</div>
+{% endblock content %}

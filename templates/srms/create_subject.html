@@ -1,0 +1,50 @@
+{% extends "srms/admin_base.html" %} {% load static %} {% block content %}
+
+<div class="container">
+  <h2 class="mb-4"><i class="fas fa-book"></i> create subject</h2>
+
+  {% if messages %}
+
+    {% for message in messages %}
+        <div class='alert alert-{% if message.tags == 'error' %}danger{% else %}{{message.tags}}{% endif %} alert-dismissible fade show role='alert''>
+            {{message}}
+            <button type="button" class='btn btn-close' data-bs-dismiss='alert'></button>
+        </div>
+    {% endfor %}
+
+  {% endif %}
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="subjectname" class="form-label">Subject Name</label>
+      <input
+        type="text"
+        name="subject_name"
+        id="subjectname"
+        class="form-control"
+        required
+        placeholder="Enter subject name"
+      />
+      <small class='text-muted'>e.g., calculus,quantum physics e.t.c</small>
+    </div>
+
+    <div class="mb-3">
+      <label for="subjectcode" class="form-label">Subject Code</label>
+      <input
+        type="text"
+        name="subject_code"
+        id="subjectcode"
+        class="form-control"
+        required
+        placeholder="Enter subject code"
+      />
+      <small class='text-muted'>e.g., sph 2300, e.t.c</small>
+    </div>
+    
+    <button type="submit" class='btn btn-success'><i class='fas fa-check-circle me-1'></i> Submit</button>
+
+  </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,97 @@
+{% extends "srms/admin_base.html" %} {% load static %} {% block content %}
+
+<div class="container">
+  <h2 class="mb-4"><i class="fas fa-user-plus"></i> add student</h2>
+
+  {% if messages %}
+
+    {% for message in messages %}
+        <div class='alert alert-{% if message.tags == 'error' %}danger{% else %}{{message.tags}}{% endif %} alert-dismissible fade show role='alert''>
+            {{message}}
+            <button type="button" class='btn btn-close' data-bs-dismiss='alert'></button>
+        </div>
+    {% endfor %}
+
+  {% endif %}
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        class="form-control"
+        required
+        placeholder="Enter student name"
+      />
+      <small class='text-muted'>e.g., john doe, e.t.c</small>
+    </div>
+
+    <div class="mb-3">
+      <label for="reg_no" class="form-label">Registration no.</label>
+      <input
+        type="text"
+        name="reg_no"
+        id="reg_no"
+        class="form-control"
+        required
+        placeholder="Enter student registration number"
+      />
+      <small class='text-muted'>e.g., scp224-1143/2023, e.t.c</small>
+    </div>
+
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        class="form-control"
+        required
+        placeholder="Enter student email"
+      />
+      <small class='text-muted'>e.g., johndoe@example.com, e.t.c</small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Gender</label><br>
+      <div class="form-check form-check-inline">
+        <input type="radio" name="gender" class="form-check-input" required checked value='Male'/>
+        <label class="form-check-label">Male</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="radio" name="gender" class="form-check-input" required value='Female'/>
+        <label class="form-check-label">Female</label>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="dob" class="form-label">Date of Birth</label>
+      <input
+        type="date"
+        name="dob"
+        id="dob"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="class" class="form-label">Select Class</label>
+      <select name="class" id="class" class="form-select" required>
+        <option value="">--select class--</option>
+        {% for class in classes %}
+            <option value="{{class.id}}">{{class.class_name}} - section {{class.section}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <button type="submit" class='btn btn-success'><i class='fas fa-check-circle me-1'></i> Submit</button>
+
+  </form>
+</div>
+
+{% endblock content %}

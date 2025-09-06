@@ -1,0 +1,41 @@
+{% extends "srms/admin_base.html" %} {% load static %} {% block content %}
+
+<div class="container">
+  <h2 class="mb-4"><i class="fas fa-plus-circle"></i> Add Notice</h2>
+
+  {% if messages %}
+
+    {% for message in messages %}
+        <div class='alert alert-{% if message.tags == 'error' %}danger{% else %}{{message.tags}}{% endif %} alert-dismissible fade show role='alert''>
+            {{message}}
+            <button type="button" class='btn btn-close' data-bs-dismiss='alert'></button>
+        </div>
+    {% endfor %}
+
+  {% endif %}
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="title" class="form-label">Notice Title</label>
+      <input
+        type="text"
+        name="title"
+        id="title"
+        class="form-control"
+        required
+        placeholder="Enter notice title"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="detail" class="form-label">Notice Details</label>
+      <textarea name="detail" id="detail" class='form-control' cols="30" rows="5" required placeholder='Enter notice details...'></textarea>
+    </div>
+    
+    <button type="submit" class='btn btn-success'><i class='fas fa-check-circle me-1'></i> Submit</button>
+
+  </form>
+</div>
+
+{% endblock content %}

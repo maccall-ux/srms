@@ -1,0 +1,44 @@
+{% extends "srms/admin_base.html" %} {% load static %} {% block content %}
+
+<div class="container">
+  <h2 class="mb-4"><i class="fas fa-plus-circle"></i> add subject combination</h2>
+
+  {% if messages %}
+
+    {% for message in messages %}
+        <div class='alert alert-{% if message.tags == 'error' %}danger{% else %}{{message.tags}}{% endif %} alert-dismissible fade show role='alert''>
+            {{message}}
+            <button type="button" class='btn btn-close' data-bs-dismiss='alert'></button>
+        </div>
+    {% endfor %}
+
+  {% endif %}
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="class" class="form-label">Select Class</label>
+      <select name="class" id="class" class="form-select" required>
+        <option value="">--select class--</option>
+        {% for class in classes %}
+            <option value="{{class.id}}">{{class.class_name}} - section {{class.section}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="subject" class="form-label">Select subject</label>
+      <select name="subject" id="subject" class="form-select" required>
+        <option value="">--select subject--</option>
+        {% for subject in subjects %}
+            <option value="{{subject.id}}">{{subject.subject_name}} - {{subject.subject_code}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <button type="submit" class='btn btn-success'><i class='fas fa-check-circle me-1'></i> Submit</button>
+
+  </form>
+</div>
+
+{% endblock content %}
